@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Військова присяга та символіка України</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+        /* Скидання та базові стилі */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    line-height: 1.6;
+    color: #eee;
+    background: #0a1f1a;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Головний екран */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)),
+                url('https://upload.wikimedia.org/wikipedia/commons/8/8e/Ukrainian_soldier_2022.jpg') center/cover no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10, 31, 26, 0.75);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: #ffd700;
+    text-shadow: 0 0 20px rgba(255,215,0,0.5);
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.8rem;
+    color: #ccc;
+}
+
+/* Секції */
+.section {
+    padding: 100px 0;
+}
+
+.oath {
+    background: #0f2a24;
+}
+
+.symbols {
+    background: #0a1f1a;
+}
+
+.videos {
+    background: #112d26;
+}
+
+.gallery {
+    background: #0f2a24;
+}
+
+h2 {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 60px;
+    color: #ffd700;
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    width: 100px;
+    height: 4px;
+    background: #ffd700;
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Присяга */
+blockquote {
+    font-size: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto 40px;
+    padding: 40px;
+    background: rgba(255,215,0,0.08);
+    border-left: 6px solid #ffd700;
+    font-style: italic;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.explanation {
+    text-align: center;
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+/* Символіка */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 20px 40px rgba(255,215,0,0.2);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background: #000;
+    padding: 20px;
+}
+
+.card h3 {
+    padding: 20px 20px 10px;
+    color: #ffd700;
+    font-size: 1.5rem;
+}
+
+.card p {
+    padding: 0 20px 25px;
+    font-size: 1rem;
+}
+
+/* Відео */
+.videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+}
+
+.video-wrapper {
+    position: relative;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 — стандарт YouTube */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    transition: all 0.4s ease;
+    background: #000; /* чорний фон, якщо картинка не завантажиться */
+}
+
+.video-wrapper a {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: block;
+}
+
+.video-thumbnail {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;        /* найголовніше — заповнює весь блок без спотворень */
+    object-position: center;
+    transition: transform 0.4s ease;
+}
+
+/* Ефекти при наведенні */
+.video-wrapper:hover .video-thumbnail {
+    transform: scale(1.08);
+}
+
+.video-wrapper:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(255,215,0,0.3);
+}
+
+/* Красивий overlay + іконка Play */
+.video-overlay {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.7);
+    color: #ffd700;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.video-wrapper:hover .video-overlay {
+    opacity: 1;
+}
+
+.video-wrapper::before {
+
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4.5rem;
+    color: rgba(255,255,255,0.9);
+    text-shadow: 0 0 30px rgba(0,0,0,0.8);
+    z-index: 1;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.video-wrapper:hover::before {
+    color: #ffd700;
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* Галерея */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(255,215,0,0.3);
+}
+
+/* Футер */
+footer {
+    background: #000;
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 1rem;
+    color: #777;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 3rem; }
+    .hero p { font-size: 1.4rem; }
+    h2 { font-size: 2.4rem; }
+    blockquote { font-size: 1.3rem; padding: 25px; }
+    .videos-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+    .hero h1 { font-size: 2.5rem; }
+    .hero p { font-size: 1.2rem; }
+}
+    </style>
+
+</head>
+<body>
+    <!-- Головний екран -->
+    <header class="hero">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1>Військова присяга<br>та символіка України</h1>
+            <p>Честь. Вірність. Захист.</p>
+        </div>
+    </header>
+
+    <!-- Присяга -->
+    <section class="section oath">
+        <div class="container">
+            <h2>Військова присяга України</h2>
+            <blockquote>
+                «Я, (прізвище, ім’я, по батькові), вступаю на військову службу і урочисто присягаю Українському народові 
+                бути вірним і відданим, сумлінно виконувати військовий обов’язок, накази командирів і начальників, 
+                дотримувати Конституції і законів України, зберігати державну і військову таємницю, гідно нести високе 
+                звання захисника Вітчизни. Присягаю ніколи не зрадити Українському народові!»
+            </blockquote>
+            <p class="explanation">
+                Присяга — це не просто слова. Це обіцянка перед народом, державою та власною совістю. 
+                Кожен військовослужбовець ЗСУ складає її один раз у житті.
+            </p>
+        </div>
+    </section>
+
+    <!-- Символіка -->
+    <section class="section symbols">
+        <div class="container">
+            <h2>Військова символіка України</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg" alt="Прапор України">
+                    <h3>Державний прапор</h3>
+                    <p>Синє небо і золоті пшеничні поля — символи миру та достатку.</p>
+                </div>
+                <div class="card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Coat_of_Arms_of_Ukraine_%28Pantone%29.svg/960px-Coat_of_Arms_of_Ukraine_%28Pantone%29.svg.png" alt="Тризуб">
+                    <h3>Державний герб — Тризуб</h3>
+                    <p>Княжий знак Володимира Великого, символ суверенітету та незламності.</p>
+                </div>
+                <div class="card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_the_Ukrainian_Armed_Forces.svg" alt="Емблема ЗСУ">
+                    <h3>Емблема Збройних Сил</h3>
+                    <p>Малиновий хрест з тризубом.</p>
+                </div>
+                <div class="card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Emblem_of_the_Ministry_of_Defence_of_Ukraine.svg/960px-Emblem_of_the_Ministry_of_Defence_of_Ukraine.svg.png" alt="Емблема Міноборони">
+                    <h3>Емблема Міноборони</h3>
+                    <p>Малиновий хрест з тризубом, буловами — спадщина козацтва.</p>
+                </div>
+                
+                <div class="card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Emblem_of_the_Ukrainian_Ground_Forces.svg/960px-Emblem_of_the_Ukrainian_Ground_Forces.svg.png" alt="Емблема Сухопутних військ">
+                    <h3>Емблема Сухопутних військ</h3>
+                    <p>Хрест з тризубом та мечами — честь і відвага.</p>
+                </div>
+                <div class="card">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Emblem_of_the_Ukrainian_Navy.svg/330px-Emblem_of_the_Ukrainian_Navy.svg.png" alt="Емблема ВМС">
+    <h3>Емблема Військово-Морських Сил</h3>
+    <p>Золотий тризуб на тлі якоря — морська сила та незламність флоту.</p>
+</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Відео -->
+   <section class="section videos">
+    <div class="container">
+        <h2>Відео церемоній присяги</h2>
+        <p class="explanation">Дивіться, як військовослужбовці ЗСУ складають присягу — урочисті моменти вірності.</p>
+        
+        <div class="videos-grid">
+            <div class="video-wrapper">
+                <a href="https://www.youtube.com/watch?v=0Mek1uniRPw" target="_blank" rel="noopener">
+                    <img src="https://img.youtube.com/vi/0Mek1uniRPw/maxresdefault.jpg" 
+                         alt="Присяга у Навчальному центрі ВМС України 2024" 
+                         class="video-thumbnail">
+                    <div class="video-overlay">Дивитися на YouTube</div>
+                </a>
+                <p style="text-align: center; margin-top: 12px; color: #ccc; font-size: 0.95rem;">
+                    Присяга у Навчальному центрі ВМС ЗСУ (2024)
+                </p>
+            </div>
+
+            <div class="video-wrapper">
+                <a href="https://www.youtube.com/watch?v=jLfTuaDFF44" target="_blank" rel="noopener">
+                    <img src="https://img.youtube.com/vi/jLfTuaDFF44/maxresdefault.jpg" 
+                         alt="Присяга першокурсників НАДПСУ 2024" 
+                         class="video-thumbnail">
+                    <div class="video-overlay">Дивитися на YouTube</div>
+                </a>
+                <p style="text-align: center; margin-top: 12px; color: #ccc; font-size: 0.95rem;">
+                    Присяга першокурсників НАДПСУ (2024)
+                </p>
+            </div>
+
+            <div class="video-wrapper">
+                <a href="https://www.youtube.com/watch?v=sTKEzRuitos" target="_blank" rel="noopener">
+                    <img src="https://img.youtube.com/vi/sTKEzRuitos/maxresdefault.jpg" 
+                         alt="Присяга курсантів Академії СБУ 2024" 
+                         class="video-thumbnail">
+                    <div class="video-overlay">Дивитися на YouTube</div>
+                </a>
+                <p style="text-align: center; margin-top: 12px; color: #ccc; font-size: 0.95rem;">
+                    Присяга курсантів Академії СБУ (2024)
+                </p>
+            </div>
+
+            <div class="video-wrapper">
+                <a href="https://www.youtube.com/watch?v=4NTx7MmKqHc" target="_blank" rel="noopener">
+                    <img src="https://img.youtube.com/vi/4NTx7MmKqHc/maxresdefault.jpg" 
+                         alt="Присяга в центрі підготовки ВМС ЗСУ 2025" 
+                         class="video-thumbnail">
+                    <div class="video-overlay">Дивитися на YouTube</div>
+                </a>
+                <p style="text-align: center; margin-top: 12px; color: #ccc; font-size: 0.95rem;">
+                    Присяга в центрі ВМС ЗСУ (2025)
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Галерея -->
+    <section class="section gallery">
+  <div class="container">
+    <h2>Галерея</h2>
+    <div class="gallery-grid">
+      <figure>
+        <a href="https://armyinform.com.ua/2024/11/02/vid-raty-do-klyatvy-yak-evolyuczionuvala-vijskova-prysyaga-v-ukrayini/" target="_blank" rel="noopener">
+          <img src="https://armyinform.com.ua/wp-content/uploads/2024/11/kart4-21.webp" alt="Військова присяга ЗСУ">
+        </a>
+        <figcaption>Військова присяга ЗСУ — (посилання на матеріал).</figcaption>
+      </figure>
+
+      <figure>
+        <a href="https://armyinform.com.ua/2022/03/14/prysyaga-pid-chas-vijny-u-brygadi-imeni-lyczariv-zymovogo-pohodu/" target="_blank" rel="noopener">
+          <img src="https://armyinform.com.ua/wp-content/uploads/2022/03/275616710_331613932327730_8269669620614210026_n-1.jpg" alt="Солдати складають присягу">
+        </a>
+        <figcaption>Солдати складають присягу.</figcaption>
+      </figure>
+
+      <figure>
+        <a href="https://armyinform.com.ua/2022/01/16/prysyagayu-nikoly-ne-zradyty-ukrayinskomu-narodovi/" target="_blank" rel="noopener">
+          <img src="https://armyinform.com.ua/wp-content/uploads/2022/01/prysyaga_1.jpg" alt="Урочиста присяга новобранців">
+        </a>
+        <figcaption>Урочиста присяга новобранців.</figcaption>
+      </figure>
+
+      <figure>
+        <a href="https://armyinform.com.ua/tag/vijskova-prysyaga/" target="_blank" rel="noopener">
+          <img src="https://armyinform.com.ua/wp-content/uploads/2023/07/0.jpg" alt="Присяга в строю">
+        </a>
+        <figcaption>Присяга в строю.</figcaption>
+      </figure>
+
+      <figure>
+        <a href="https://armyinform.com.ua/2021/08/14/na-virnist-ukrayinskomu-narodovi-prysyagnuly-majbutni-serzhanty-zvyazkivczi/" target="_blank" rel="noopener">
+          <img src="https://armyinform.com.ua/wp-content/uploads/2021/08/arsf00008.jpg" alt="Присяга біля військової частини">
+        </a>
+        <figcaption>Присяга біля військової частини.</figcaption>
+      </figure>
+
+      <figure>
+        <a href="https://armyinform.com.ua/2020/09/12/ponad-100-majbutnih-oficzeriv-tankistiv-prysyagnuly-na-virnist-ukrayinskomu-narodu/" target="_blank" rel="noopener">
+          <img src="https://armyinform.com.ua/wp-content/uploads/2020/09/1-35.jpg" alt="Курсанти складають присягу">
+        </a>
+        <figcaption>Курсанти складають присягу — (посилання на матеріал).</figcaption>
+      </figure>
+
+      
+
+     
+
+      
+    </div>
+  </div>
+</section>
+<footer style="background: linear-gradient(to top, #0a1f1a 0%, #0a1a15 100%); padding: 80px 20px 60px; position: relative; overflow: hidden;">
+    <div class="container" style="position: relative; z-index: 2;">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+
+            <h3 style="font-size: 3rem; background: linear-gradient(90deg, #0057b7, #ffd700); 
+                        -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+                        font-weight: 900; letter-spacing: 4px; margin-bottom: 15px;">
+                СЛАВА УКРАЇНІ
+            </h3>
+
+            <p style="font-size: 2.4rem; color: #ffd700; font-weight: 900; text-shadow: 0 0 30px rgba(255,215,0,0.6);">
+                ГЕРОЯМ СЛАВА!
+            </p>
+
+            <div style="margin: 50px 0;">
+                <span style="font-size: 5rem; display: inline-block; animation: pulse 3s infinite;">✙</span>
+            </div>
+
+
+            
+        </div>
+    </div>
+
+    </footer>
+
+
+
+   
+
+    <script src="script.js">// Плавне з’явлення елементів при прокручуванні
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -100px 0px"
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = "translateY(0)";
+        }
+    });
+}, observerOptions);
+
+// Додаємо анімацію до всіх карток та секцій
+document.querySelectorAll('.card, .section, blockquote, .gallery-grid img, .video-wrapper').forEach(el => {
+    el.style.opacity = 0;
+    el.style.transform = "translateY(40px)";
+    el.style.transition = "all 0.8s ease";
+    observer.observe(el);
+});
+
+// Плавний скрол при кліку на посилання (якщо додаси навігацію)
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});</script>
+</body>
+</html>
